@@ -1,0 +1,49 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Containerpak/cpak/v2/schema/manifest-v2.json",
+  "manifest_version": "2.0",
+  "name": "Unleashed Recompiled",
+  "description": "An unofficial PC port of the Xbox 360 version of Sonic Unleashed created through the process of static recompilation.",
+  "version": "v1.0.3",
+  "image": "ghcr.io/n02star/unleashedrecomp:main",
+  "binaries": [
+    "/usr/bin/UnleashedRecomp"
+  ],
+  "desktop_entries": ["/usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop"],
+  "idle_time": 0,
+  "override": {
+    "socketX11": true,
+    "socketWayland": true,
+    "socketPulseAudio": true,
+    "socketSessionBus": true,
+    "socketSystemBus": false,
+    "socketSshAgent": false,
+    "socketCups": false,
+    "socketGpgAgent": false,
+    "socketAtSpiBus": false,
+    "socketBluetooth": false,
+    "deviceDri": true,
+    "deviceKvm": false,
+    "deviceShm": false,
+    "deviceAlsa": true,
+    "deviceVideo": false,
+    "deviceFuse": false,
+    "deviceTun": false,
+    "deviceUsb": true,
+    "deviceInput": false,
+    "deviceTTY": false,
+    "deviceAll": false,
+    "notification": false,
+    "openURI": false,
+    "filesystem":[
+       { "path":"home","access":"read-write" }
+    ],
+    "hostApplications": false,
+    "network": true,
+    "process": false,
+    "userNamespaces": false,
+    "memoryMaxMB": 0,
+    "cpuQuota": 0,
+    "pidsMax": 0,
+    "asRoot": false
+  }
+}
