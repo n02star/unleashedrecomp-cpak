@@ -1,2 +1,16 @@
-# unleashedrecomp-cpak
-An unofficial PC port of the Xbox 360 version of Sonic Unleashed created through the process of static recompilation. (Cpak image)
+# UnleashedRecomp
+Check the repository [here](https://github.com/hedge-dev/UnleashedRecomp), cpak image build here.
+
+## Installation
+
+```bash
+cpak install github.com/n02star/unleashedrecomp
+```
+
+## Usage
+
+Start it from the application menu or by running:
+
+```bash
+cpak run github.com/n02star/unleashedrecomp UnleashedRecomp
+```
