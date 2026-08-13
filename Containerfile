@@ -4,12 +4,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ARG ASSETS_URL=$ASSETS_URL
 
-RUN apt update && \
-    apt upgrade -y && \
-    apt install -y build-essential autoconf automake libtool pkg-config \
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y build-essential autoconf automake libtool pkg-config \
     curl cmake make ninja-build clang clang-tools libgtk-3-dev git \
-    llvm-18-dev libasound2-dev libpulse-dev libpipewire-0.3-dev && \
-    ln -s /usr/bin/ninja-build /usr/bin/ninja && \
+    libasound2-dev libpulse-dev libpipewire-0.3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Assets
