@@ -36,7 +36,8 @@ WORKDIR /app/bin
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends libasound2t64 libsdl2-2.0-0 \
-    libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 libpulse0 && \
+    libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 \
+    libpulse0 libsm6 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
