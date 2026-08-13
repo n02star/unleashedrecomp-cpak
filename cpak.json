@@ -6,7 +6,7 @@
   "version": "v1.0.3",
   "image": "ghcr.io/n02star/unleashedrecomp:main",
   "binaries": [
-    "/usr/bin/UnleashedRecomp"
+    "/app/UnleashedRecomp"
   ],
   "desktop_entries": ["/usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop"],
   "idle_time": 0,
