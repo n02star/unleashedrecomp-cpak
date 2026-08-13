@@ -28,10 +28,13 @@ RUN cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE \
 FROM ghcr.io/containerpak/mesa:main
 
 RUN apt-get update && \
-    apt-get upgrade -y --no-install-recommends
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends libsm6 libxext6
 
 COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp /usr/bin/UnleashedRecomp
 COPY ./io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
 COPY ./io.github.hedge_dev.unleashedrecomp.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
-RUN cpak-clean-junk
+RUN ldd /usr/bin/UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
+    ! grep -q 'not found' /tmp/UnleashedRecomp-ldd && \
+    cpak-clean-junk
