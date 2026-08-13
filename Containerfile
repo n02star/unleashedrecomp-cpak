@@ -10,7 +10,8 @@ RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends build-essential git autoconf \
     automake libtool zip unzip tar ca-certificates lld libc++abi-dev llvm-dev \
-    pkg-config curl cmake ccache ninja-build clang clang-tools libgtk-3-dev && \
+    pkg-config curl cmake ccache ninja-build clang clang-tools libgtk-3-dev \
+    libasound2-dev libpulse-dev libpipewire-0.3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone --recurse-submodules https://github.com/hedge-dev/UnleashedRecomp.git .
