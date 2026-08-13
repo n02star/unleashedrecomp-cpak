@@ -7,8 +7,8 @@ ARG ASSETS_URL=$ASSETS_URL
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y build-essential autoconf automake libtool pkg-config \
-    curl cmake make ninja-build clang clang-tools libgtk-3-dev git \
-    libasound2-dev libpulse-dev libpipewire-0.3-dev && \
+    curl cmake make ninja-build clang clang-tools libgtk-3-dev git tar unzip \
+    zip libasound2-dev libpulse-dev libpipewire-0.3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 # Assets
@@ -20,7 +20,7 @@ RUN git clone https://github.com/hedge-dev/UnleashedRecomp.git /src/UnleashedRec
     cd /src/UnleashedRecomp && \
     mv /tmp/private/* ./UnleashedRecompLib/private && \
     git submodule update --init --recursive && \
-    cmake . --preset linux-release -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja -DSDL2MIXER_VORBIS=VORBISFILE -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache && \
+    cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache && \
     cmake --build ./out/build/linux-release --target UnleashedRecomp && \
     cp ./out/build/linux-release/UnleashedRecomp /usr/bin/UnleashedRecomp
 
