@@ -4,5 +4,5 @@ Check the repository [here](https://github.com/hedge-dev/UnleashedRecomp), cpak 
 ## Installation
 
 ```bash
-cpak install github.com/n02star/unleashedrecomp
+cpak install github.com/n02star/unleashedrecomp-cpak
 ```
