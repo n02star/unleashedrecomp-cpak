@@ -29,6 +29,8 @@ RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
 COPY --from=builder /src/out/build/linux-release/UnleashedRecomp /usr/bin/UnleashedRecomp
+COPY --from=builder /src/flatpak/io.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.hedge_dev.unleashedrecomp.desktop
+RUN sed -i 's/Exec=/app/Exec=/usr/bin' /usr/share/applications/io.hedge_dev.unleashedrecomp.desktop
 COPY ./io.github.hedge_dev.unleashedrecomp.png /usr/share/icons/hicolor/128x128/apps
 
 RUN cpak-clean-junk
