@@ -11,11 +11,11 @@ ADD ${ASSETS_URL}/shader.ar /tmp/shader.ar
 RUN apt update && \
     apt install -y --no-install-recommends build-essential autoconf automake libtool pkg-config \
     curl cmake ccache ninja-build clang clang-tools libgtk-3-dev && \
-    git clone -- recursive-submodules https://github.com/hedge-dev/UnleashedRecomp.git /tmp/unleashedrecomp && \
-    cd /tmp/unleashedrecomp && \
+    git clone --recursive-submodules https://github.com/hedge-dev/UnleashedRecomp.git /src/unleashedrecomp && \
+    cd /src/unleashedrecomp && \
     git checkout "$UR_COMMIT" && \
     test "$(git rev-parse HEAD)" = "$UR_COMMIT" && \
-    cp /tmp/* ./ && \
+    cp /tmp/* ./UnleashedRecompLib/private && \
     cmake . --preset linux-release && \
     cmake --build ./out/build/linux-release --target UnleashedRecomp && \
     cp ./out/build/linux-release/UnleashedRecomp /usr/bin/UnleashedRecomp
