@@ -35,12 +35,15 @@
     "notification": false,
     "openURI": false,
     "filesystem":[
-       { "path": "home", "access":"read-write" }
+       { "path": "home", "access":"read-write" },
+       { "path": "/mnt", "access":"read-write" },
+       { "path": "/run/media", "access":"read-write" },
+       { "path": "/media", "access":"read-write" }
     ],
     "hostApplications": false,
     "network": false,
     "process": false,
-    "userNamespaces": true,
+    "userNamespaces": false,
     "memoryMaxMB": 0,
     "cpuQuota": 0,
     "pidsMax": 0,
