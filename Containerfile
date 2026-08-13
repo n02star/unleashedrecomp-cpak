@@ -9,6 +9,7 @@ RUN apt update && \
     apt install -y build-essential autoconf automake libtool pkg-config \
     curl cmake make ninja-build clang clang-tools libgtk-3-dev git \
     llvm-18-dev libasound2-dev libpulse-dev libpipewire-0.3-dev && \
+    ln -s /usr/bin/ninja-build /usr/bin/ninja && \ # Fix ninja not found
     rm -rf /var/lib/apt/lists/*
 
 # Assets
@@ -20,7 +21,7 @@ RUN git clone https://github.com/hedge-dev/UnleashedRecomp.git /src/UnleashedRec
     cd /src/UnleashedRecomp && \
     mv /tmp/private/* ./UnleashedRecompLib/private && \
     git submodule update --init --recursive && \
-    cmake . --preset linux-release - -DSDL2MIXER_VORBIS=VORBISFILE -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache && \
+    cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache && \
     cmake --build ./out/build/linux-release --target UnleashedRecomp && \
     cp ./out/build/linux-release/UnleashedRecomp /usr/bin/UnleashedRecomp
 
