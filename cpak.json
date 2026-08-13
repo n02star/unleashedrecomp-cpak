@@ -35,10 +35,11 @@
     "notification": false,
     "openURI": false,
     "filesystem":[
-       { "path": "host", "access":"read-write" },
-       { "path": "/mnt", "access":"read-write" },
-       { "path": "/run/media", "access":"read-write" },
-       { "path": "/media", "access":"read-write" }
+       { "path": "host", "access": "read-only" },
+       { "path": "home", "access": "read-write" },
+       { "path": "/mnt", "access": "read-write" },
+       { "path": "/run/media", "access": "read-write" },
+       { "path": "/media", "access": "read-write" }
     ],
     "hostApplications": false,
     "network": false,
