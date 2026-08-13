@@ -40,7 +40,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
-COPY --form=builder /src/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
+COPY --from=builder /src/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
 COPY ./icon.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
 RUN ldd /usr/bin/UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
