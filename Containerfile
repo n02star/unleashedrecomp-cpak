@@ -1,4 +1,4 @@
-FROM ghcr.io/containerpak/mesa-sdk:main AS builder
+FROM ghcr.io/containerpak/gtk-sdk:main AS builder
 
 WORKDIR /src
 
@@ -10,8 +10,9 @@ RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends build-essential git autoconf \
     automake libtool zip unzip tar ca-certificates lld libc++abi-dev llvm-dev \
-    pkg-config curl cmake ccache ninja-build clang clang-tools libgtk-3-dev \
-    libasound2-dev libpulse-dev libpipewire-0.3-dev && \
+    pkg-config curl cmake ccache ninja-build clang clang-tools libasound2-dev \
+    libpulse-dev libpipewire-0.3-dev libsdl2-dev libtheora-dev libvorbis-dev \
+    libxrender-dev && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone --recurse-submodules https://github.com/hedge-dev/UnleashedRecomp.git .
@@ -26,15 +27,19 @@ RUN cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE \
         -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache && \
     cmake --build ./out/build/linux-release --target UnleashedRecomp
 
-FROM ghcr.io/containerpak/mesa:main
+FROM ghcr.io/containerpak/gtk:main
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
-    apt-get install -y --no-install-recommends libsm6 libxext6
+    apt-get install -y --no-install-recommends libasound2t64 libsdl2-2.0-0 \
+    libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 libpulse0 && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp /usr/bin/UnleashedRecomp
 COPY ./io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
-COPY ./io.github.hedge_dev.unleashedrecomp.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
+COPY ./icon.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
 RUN ldd /usr/bin/UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
     ! grep -q 'not found' /tmp/UnleashedRecomp-ldd && \
