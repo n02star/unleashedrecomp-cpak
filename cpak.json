@@ -35,7 +35,8 @@
     "notification": false,
     "openURI": false,
     "filesystem":[
-       { "path":"home","access":"read-write" }
+       { "path": "xdg-config/UnleashedRecomp", "access":"read-write" },
+       { "path": "xdg-data/UnleashedRecomp", "access":"read-write" }
     ],
     "hostApplications": false,
     "network": true,
