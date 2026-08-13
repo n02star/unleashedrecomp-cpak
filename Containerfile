@@ -30,7 +30,7 @@ FROM ghcr.io/containerpak/mesa:main
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
-COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/* /usr/bin/UnleashedRecomp
+COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp /usr/bin/UnleashedRecomp
 COPY ./io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
 COPY ./io.github.hedge_dev.unleashedrecomp.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
