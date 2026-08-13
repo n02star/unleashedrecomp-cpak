@@ -20,7 +20,7 @@ RUN git clone https://github.com/hedge-dev/UnleashedRecomp.git /src/UnleashedRec
     cd /src/UnleashedRecomp && \
     mv /tmp/private/* ./UnleashedRecompLib/private && \
     git submodule update --init --recursive && \
-    cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache && \
+    cmake . --preset linux-release -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja -DSDL2MIXER_VORBIS=VORBISFILE -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache && \
     cmake --build ./out/build/linux-release --target UnleashedRecomp && \
     cp ./out/build/linux-release/UnleashedRecomp /usr/bin/UnleashedRecomp
 
