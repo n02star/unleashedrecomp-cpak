@@ -9,7 +9,7 @@ RUN apt update && \
     apt install -y build-essential autoconf automake libtool pkg-config \
     curl cmake make ninja-build clang clang-tools libgtk-3-dev git \
     llvm-18-dev libasound2-dev libpulse-dev libpipewire-0.3-dev && \
-    ln -s /usr/bin/ninja-build /usr/bin/ninja && \ # Fix ninja not found
+    ln -s /usr/bin/ninja-build /usr/bin/ninja && \
     rm -rf /var/lib/apt/lists/*
 
 # Assets
