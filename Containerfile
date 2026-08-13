@@ -20,7 +20,9 @@ ADD ${ASSETS_URL}/default.xex ./UnleashedRecompLib/private/default.xex
 ADD ${ASSETS_URL}/default.xexp ./UnleashedRecompLib/private/default.xexp
 ADD ${ASSETS_URL}/shader.ar ./UnleashedRecompLib/private/shader.ar
 
-RUN cmake --preset linux-release && \
+RUN cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE \
+        -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache \
+        -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache && \
     cmake --build ./out/build/linux-release --target UnleashedRecomp
 
 FROM ghcr.io/containerpak/mesa:main
@@ -28,8 +30,8 @@ FROM ghcr.io/containerpak/mesa:main
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
-COPY --from=builder /src/out/build/linux-release/UnleashedRecomp /usr/bin/UnleashedRecomp
+COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/* /usr/bin/UnleashedRecomp
 COPY ./io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
-COPY ./io.github.hedge_dev.unleashedrecomp.png /usr/share/icons/hicolor/128x128/apps/io.github.hedge_dev.unleashedrecomp.png
+COPY ./io.github.hedge_dev.unleashedrecomp.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
 RUN cpak-clean-junk
