@@ -31,7 +31,7 @@ FROM ghcr.io/containerpak/gtk:main
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /app
+WORKDIR /app/bin
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
