@@ -1,10 +1,10 @@
 FROM ghcr.io/containerpak/gtk-sdk:main AS builder
 
-WORKDIR /src
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 ARG ASSETS_URL
+
+WORKDIR /src
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
@@ -31,14 +31,16 @@ FROM ghcr.io/containerpak/gtk:main
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+WORKDIR /app
+
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends libasound2t64 libsdl2-2.0-0 \
     libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 libpulse0 && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp /usr/bin/UnleashedRecomp
-COPY ./io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
+COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
+COPY --form=builder /src/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
 COPY ./icon.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
 RUN ldd /usr/bin/UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
