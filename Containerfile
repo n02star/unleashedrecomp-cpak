@@ -1,10 +1,9 @@
 FROM ghcr.io/containerpak/gtk-sdk:main AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
-
 ARG ASSETS_URL
 
-WORKDIR /src
+WORKDIR /app
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
@@ -22,28 +21,29 @@ ADD ${ASSETS_URL}/default.xex ./UnleashedRecompLib/private/default.xex
 ADD ${ASSETS_URL}/default.xexp ./UnleashedRecompLib/private/default.xexp
 ADD ${ASSETS_URL}/shader.ar ./UnleashedRecompLib/private/shader.ar
 
-RUN cmake . --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE \
+RUN cmake --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE \
         -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache \
         -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache && \
-    cmake --build ./out/build/linux-release --target UnleashedRecomp
+    cmake --build out/build/linux-release --target UnleashedRecomp
 
 FROM ghcr.io/containerpak/gtk:main
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV GAME_INSTALL_DIRECTORY=$HOME/.local/share/UnleashedRecomp
 
 WORKDIR /app/bin
+
+COPY --from=builder /app/out/build/linux-release/UnleashedRecomp/UnleashedRecomp /usr/bin/
+COPY --from=builder /app/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
+COPY ./icon.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends libasound2t64 libsdl2-2.0-0 \
     libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 \
-    libpulse0 libsm6 libice6 libx11-6 libxext6 libdbus-1-3 libc6 libstdc++6 libgcc-s1 libuuid1 libxcb1 libsystemd0 libxau6 libxdmcp6 && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
-COPY --from=builder /src/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop
-COPY ./icon.png /usr/share/icons/hicolor/128x128/io.github.hedge_dev.unleashedrecomp.png
-
-RUN ldd /app/bin/UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
+    libpulse0 libsm6 xdg-utils xdg-desktop-portal && \
+    rm -rf /var/lib/apt/lists/* && \
+    ln -s /usr/bin/UnleashedRecomp . && \
+    ldd ./UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
     ! grep -q 'not found' /tmp/UnleashedRecomp-ldd && \
     cpak-clean-junk
