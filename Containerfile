@@ -37,7 +37,7 @@ RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends libasound2t64 libsdl2-2.0-0 \
     libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 \
-    libpulse0 libsm6 && \
+    libpulse0 libsm6 libice6 libx11-6 libxext6 libdbus-1-3 libc6 libstdc++6 libgcc-s1 libuuid1 libxcb1 libsystemd0 libxau6 libxdmcp6 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
