@@ -2,7 +2,7 @@ FROM ghcr.io/containerpak/gtk-sdk:main AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 ARG ASSETS_URL
-WORKDIR /app
+WORKDIR /src
 
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
@@ -30,9 +30,9 @@ FROM ghcr.io/containerpak/gtk:main
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
 
-COPY --from=builder /app/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
-COPY --from=builder /app/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications
-COPY --from=builder /app/UnleashedRecompResources/images/game_icon.png /usr/share/icons/hicolor/128x128/apps/io.github.hedge_dev.unleashedrecomp.png
+COPY --from=builder /src/out/build/linux-release/UnleashedRecomp/UnleashedRecomp .
+COPY --from=builder /src/flatpak/io.github.hedge_dev.unleashedrecomp.desktop /usr/share/applications
+COPY --from=builder /src/UnleashedRecompResources/images/game_icon.png /usr/share/icons/hicolor/128x128/apps/io.github.hedge_dev.unleashedrecomp.png
 COPY ./unleashedrecomp /usr/bin/unleashedrecomp
 
 RUN apt-get update && \
