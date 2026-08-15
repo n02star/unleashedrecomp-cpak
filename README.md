@@ -1,5 +1,5 @@
 # UnleashedRecomp (cpak)
-Check the repository [here](https://github.com/hedge-dev/UnleashedRecomp), cpak image build here.
+Check the recomp repository [here](https://github.com/hedge-dev/UnleashedRecomp), cpak image build here.
 
 ## Installation
 
