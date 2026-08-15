@@ -41,7 +41,7 @@ RUN apt-get update && \
     libsndio7.0 libtheora1 libtheoradec2 libvorbis0a libvorbisfile3 libpipewire-0.3-0 \
     libpulse0 libsm6 xdg-utils xdg-desktop-portal && \
     rm -rf /var/lib/apt/lists/* && \
-    sed -i 's|Exec=/app/bin/UnleashedRecomp|Exec=/usr/bin/unleashedrecomp|g' /usr/share/io.github.hedge_dev.unleashedrecomp.desktop && \
+    sed -i 's|Exec=/app/bin/UnleashedRecomp|Exec=/usr/bin/unleashedrecomp|g' /usr/share/applications/io.github.hedge_dev.unleashedrecomp.desktop && \
     ldd ./UnleashedRecomp | tee /tmp/UnleashedRecomp-ldd && \
     ! grep -q 'not found' /tmp/UnleashedRecomp-ldd && \
     cpak-clean-junk
