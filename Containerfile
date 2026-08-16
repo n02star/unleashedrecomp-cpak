@@ -23,7 +23,7 @@ ADD ${ASSETS_URL}/shader.ar ./UnleashedRecompLib/private/shader.ar
 RUN cmake --preset linux-release -DSDL2MIXER_VORBIS=VORBISFILE \
         -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/ccache \
         -DCMAKE_C_COMPILER_LAUNCHER=/usr/bin/ccache
-        -DGAME_INSTALL_DIRECTORY=$HOME/.local/share/UnleashedRecomp && \
+        -DGAME_INSTALL_DIRECTORY="${HOME}/.local/share/UnleashedRecomp" && \
     cmake --build out/build/linux-release --target UnleashedRecomp
 
 FROM ghcr.io/containerpak/gtk:main
