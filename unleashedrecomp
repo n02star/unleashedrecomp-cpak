@@ -1,4 +1,0 @@
-#!/bin/sh
-export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-export GAME_INSTALL_DIRECTORY="${XDG_DATA_HOME}/UnleashedRecomp"
-exec /app/UnleashedRecomp "$@"
