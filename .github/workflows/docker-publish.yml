@@ -33,6 +33,7 @@ jobs:
         with:
           context: .
           file: Containerfile
+          pull: true
           build-args: |
             ASSETS_URL=${{ vars.ASSETS_URL }}
           platforms: linux/amd64
